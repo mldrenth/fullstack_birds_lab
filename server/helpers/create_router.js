@@ -13,7 +13,22 @@ const createRouter = function (collection) {
             console.error(err);
             res.status(500);
             res.json({status: 500, error: err})
+        });
+    });
+
+    // CREATE - post
+    router.post('/', (req, res) => {
+        const newData = req.body
+        collection
+        .insertOne(newData)
+        .then((result) => {
+            res.json(result.ops[0])
         })
+        .catch((err) => {
+            console.error(err);
+            res.status(500);
+            res.json({status: 500, error: err})
+        });
     })
 
     return router
